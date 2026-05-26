@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 type UploadPanelProps = {
   modelFile: File | null;
   imageFiles: File[];
@@ -17,6 +19,19 @@ export default function UploadPanel({
   onRun,
   onReset,
 }: UploadPanelProps) {
+  const modelInputRef = useRef<HTMLInputElement | null>(null);
+  const imagesInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleReset = () => {
+    onReset();
+    if (modelInputRef.current) {
+      modelInputRef.current.value = "";
+    }
+    if (imagesInputRef.current) {
+      imagesInputRef.current.value = "";
+    }
+  };
+
   return (
     <section className="panel panel-upload">
       <h2 className="panel-title">Upload</h2>
@@ -24,6 +39,7 @@ export default function UploadPanel({
       <label className="input-block">
         <span>Model file (.pt)</span>
         <input
+          ref={modelInputRef}
           type="file"
           accept=".pt"
           onChange={(event) => onModelChange(event.target.files?.[0] ?? null)}
@@ -34,6 +50,7 @@ export default function UploadPanel({
       <label className="input-block">
         <span>Test images (max 40)</span>
         <input
+          ref={imagesInputRef}
           type="file"
           accept="image/*"
           multiple
@@ -60,7 +77,7 @@ export default function UploadPanel({
         <button type="button" className="btn btn-primary" disabled={isRunning} onClick={onRun}>
           {isRunning ? "Dang test..." : "Chay test"}
         </button>
-        <button type="button" className="btn btn-secondary" disabled={isRunning} onClick={onReset}>
+        <button type="button" className="btn btn-secondary" disabled={isRunning} onClick={handleReset}>
           Reset
         </button>
       </div>

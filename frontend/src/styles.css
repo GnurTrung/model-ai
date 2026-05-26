@@ -165,10 +165,29 @@ input[type="file"] {
   gap: 0.9rem;
 }
 
+.result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.result-head .panel-title {
+  margin: 0;
+}
+
 .result-card {
   border: 2px solid var(--border);
   background: #fff;
   overflow: hidden;
+  cursor: zoom-in;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.result-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0 rgba(29, 27, 26, 0.25);
 }
 
 .result-card img {
@@ -183,6 +202,45 @@ input[type="file"] {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+}
+
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  z-index: 20;
+}
+
+.image-modal-content {
+  width: min(900px, 94vw);
+  max-height: 92vh;
+  overflow: auto;
+  background: #fff;
+  border: 2px solid var(--border);
+  position: relative;
+  padding: 1rem;
+}
+
+.image-modal-content img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-modal-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  border: 2px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  width: 2rem;
+  height: 2rem;
 }
 
 .empty-state {

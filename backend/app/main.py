@@ -6,9 +6,16 @@ from app.routes.infer import router as infer_router
 
 app = FastAPI(title="YOLO Model Tester API", version="1.0.0")
 
+origins = [
+    "https://model-ai-ten.vercel.app", # Thay bằng domain Vercel thật của bạn nếu muốn giữ lại
+    "http://localhost:3000",
+    "http://localhost:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.cors_origins_list,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
